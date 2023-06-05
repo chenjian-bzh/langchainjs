@@ -10,7 +10,7 @@
     "test": "tsc"
   },
   "dependencies": {
-    "langchain": "workspace:*"
+    "@cloudfun/langchain": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.0.0",

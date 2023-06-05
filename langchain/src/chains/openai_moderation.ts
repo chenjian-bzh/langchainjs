@@ -4,7 +4,7 @@ import {
   ConfigurationParameters,
   CreateModerationRequest,
   CreateModerationResponseResultsInner,
-} from "openai";
+} from "cloudfun-openai";
 import { BaseChain, ChainInputs } from "./base.js";
 import { ChainValues } from "../schema/index.js";
 import fetchAdapter from "../util/axios-fetch-adapter.js";

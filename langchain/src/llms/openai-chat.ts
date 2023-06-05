@@ -6,7 +6,7 @@ import {
   ConfigurationParameters,
   ChatCompletionResponseMessageRoleEnum,
   CreateChatCompletionResponse,
-} from "openai";
+} from "cloudfun-openai";
 import { isNode, getEnvironmentVariable } from "../util/env.js";
 import {
   AzureOpenAIInput,
@@ -276,7 +276,7 @@ export class OpenAIChat
                   for (const part of message.choices) {
                     if (part != null) {
                       let choice = response.choices.find(
-                        (c) => c.index === part.index
+                        (c: any) => c.index === part.index
                       );
 
                       if (!choice) {

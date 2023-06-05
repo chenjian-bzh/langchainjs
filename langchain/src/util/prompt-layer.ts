@@ -1,4 +1,7 @@
-import { CreateCompletionRequestPrompt, CreateCompletionRequest } from "openai";
+import {
+  CreateCompletionRequestPrompt,
+  CreateCompletionRequest,
+} from "cloudfun-openai";
 import { AsyncCaller } from "../util/async_caller.js";
 
 export const promptLayerTrackRequest = async (

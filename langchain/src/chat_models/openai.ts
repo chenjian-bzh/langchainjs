@@ -6,7 +6,7 @@ import {
   CreateChatCompletionResponse,
   ChatCompletionResponseMessageRoleEnum,
   ChatCompletionRequestMessage,
-} from "openai";
+} from "cloudfun-openai";
 import { getEnvironmentVariable, isNode } from "../util/env.js";
 import {
   AzureOpenAIInput,

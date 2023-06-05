@@ -6,7 +6,7 @@ import {
   CreateCompletionResponse,
   CreateCompletionResponseChoicesInner,
   OpenAIApi,
-} from "openai";
+} from "cloudfun-openai";
 import { isNode, getEnvironmentVariable } from "../util/env.js";
 import {
   AzureOpenAIInput,

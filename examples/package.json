@@ -15,7 +15,6 @@
     "start:dist": "yarn build && node -r dotenv/config dist/index.js",
     "lint": "eslint src",
     "lint:fix": "yarn lint --fix",
-    "precommit": "tsc --noEmit && lint-staged",
     "format": "prettier --write \"**/*.ts\"",
     "format:check": "prettier --check \"**/*.ts\""
   },
@@ -23,6 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "@clickhouse/client": "^0.0.14",
+    "@cloudfun/langchain": "workspace:*",
     "@getmetal/metal-sdk": "^4.0.0",
     "@getzep/zep-js": "0.3.1",
     "@gomomento/sdk": "^1.23.0",
@@ -39,7 +39,6 @@
     "faiss-node": "^0.2.0",
     "graphql": "^16.6.0",
     "js-yaml": "^4.1.0",
-    "langchain": "workspace:*",
     "ml-distance": "^4.0.0",
     "mongodb": "^5.2.0",
     "mysql2": "^3.3.3",

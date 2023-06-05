@@ -3,7 +3,7 @@ import {
   OpenAIApi,
   CreateEmbeddingRequest,
   ConfigurationParameters,
-} from "openai";
+} from "cloudfun-openai";
 import type { AxiosRequestConfig } from "axios";
 import { getEnvironmentVariable, isNode } from "../util/env.js";
 import { AzureOpenAIInput } from "../types/openai-types.js";

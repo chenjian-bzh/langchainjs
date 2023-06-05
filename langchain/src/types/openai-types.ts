@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from "axios";
-import { ChatCompletionRequestMessage } from "openai";
+import { ChatCompletionRequestMessage } from "cloudfun-openai";
 
 import { BaseLanguageModelCallOptions } from "../base_language/index.js";
 
