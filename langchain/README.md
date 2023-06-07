@@ -1,55 +1,60 @@
-# 🦜️🔗 LangChain.js
+# 🦜️🔗 @cloudfun/langchain
 
-⚡ Building applications with LLMs through composability ⚡
+@cloudfun/langchain 内部引用 cloudfun-openai , 改写了 OpenAI 相关的 API 和鉴权传值，目前仅支持 completion、embedding、chat 相关接口
 
-[![CI](https://github.com/hwchase17/langchainjs/actions/workflows/ci.yml/badge.svg)](https://github.com/hwchase17/langchainjs/actions/workflows/ci.yml) ![npm](https://img.shields.io/npm/dw/langchain) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/langchainai.svg?style=social&label=Follow%20%40LangChainAI)](https://twitter.com/langchainai) [![](https://dcbadge.vercel.app/api/server/6adMQxSpJS?compact=true&style=flat)](https://discord.gg/6adMQxSpJS) [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/hwchase17/langchainjs)
-[<img src="https://github.com/codespaces/badge.svg" title="Open in Github Codespace" width="150" height="20">](https://codespaces.new/hwchase17/langchainjs)
+## Install
 
-Looking for the Python version? Check out [LangChain](https://github.com/hwchase17/langchain).
-
-**Production Support:** As you move your LangChains into production, we'd love to offer more comprehensive support.
-Please fill out [this form](https://forms.gle/57d8AmXBYp8PP8tZA) and we'll set up a dedicated support Slack channel.
-
-## Quick Install
-
-`yarn add langchain`
-
-```typescript
-import { OpenAI } from "langchain/llms/openai";
+```javascript
+yarn add @cloudfun/langchain
 ```
 
-## Supported Environments
+## Usage
 
-LangChain is written in TypeScript and can be used in:
+将内部申请的 jwt token 作为 openai 的 accesskey 传入， 同时需要指定 basePath
 
-- Node.js (ESM and CommonJS) - 18.x, 19.x, 20.x
-- Cloudflare Workers
-- Vercel / Next.js (Browser, Serverless and Edge functions)
-- Supabase Edge Functions
-- Browser
-- Deno
+### completion
 
-## 🤔 What is this?
+```javascript
+import { ChatOpenAI } from "@cloudfun/langchain/chat_models/openai";
+import { LLMChain } from "@cloudfun/langchain/chains";
+import {
+  ChatPromptTemplate,
+  SystemMessagePromptTemplate,
+  HumanMessagePromptTemplate,
+} from "@cloudfun/langchain/prompts";
 
-Large language models (LLMs) are emerging as a transformative technology, enabling
-developers to build applications that they previously could not.
-But using these LLMs in isolation is often not enough to
-create a truly powerful app - the real power comes when you can combine them with other sources of computation or knowledge.
+const llm = new ChatOpenAI(
+  {
+    temperature: 0,
+    openAIApiKey: "xx",
+  },
+  {
+    basePath: "http://bychat-boe.byted.org/api/gpt/openapi/online/v2/crawl",
+  }
+);
 
-This library is aimed at assisting in the development of those types of applications.
+const chatPrompt = ChatPromptTemplate.fromPromptMessages([
+  SystemMessagePromptTemplate.fromTemplate(
+    "You are a helpful assistant that translates {input_language} to {output_language}."
+  ),
+  HumanMessagePromptTemplate.fromTemplate("{text}"),
+]);
+const chain = new LLMChain({ llm: llm, prompt: chatPrompt });
 
-## 📖 Full Documentation
+const res = await chain.call({
+  input_language: "English",
+  output_language: "French",
+  text: "I love programming.",
+});
+```
 
-For full documentation of prompts, chains, agents and more, please see [here](https://js.langchain.com/docs/).
+### embedding
 
-## Relationship with Python LangChain
+如果要使用 openai embedding 的接口, 在声明 OpenAIEmbeddings 的时候传入自己的 token 和 basePath
 
-This is built to integrate as seamlessly as possible with the [LangChain Python package](https://github.com/hwchase17/langchain). Specifically, this means all objects (prompts, LLMs, chains, etc) are designed in a way where they can be serialized and shared between languages.
-
-The [LangChainHub](https://github.com/hwchase17/langchain-hub) is a central place for the serialized versions of these prompts, chains, and agents.
-
-## 💁 Contributing
-
-As an open source project in a rapidly developing field, we are extremely open to contributions, whether it be in the form of a new feature, improved infra, or better documentation.
-
-Check out [our contributing guidelines](https://github.com/hwchase17/langchainjs/blob/main/CONTRIBUTING.md) for instructions on how to contribute.
+```javascript
+new OpenAIEmbeddings(
+  { openAIApiKey: JWT_TOKEN, timeout: 10000, verbose: true, maxRetries: 1 },
+  { basePath: OEPNAI_BASEPATH }
+);
+```
